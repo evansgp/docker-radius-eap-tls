@@ -1,0 +1,55 @@
+server site {
+
+listen {
+	type = auth
+	ipaddr = *
+	port = 0
+	limit {
+		max_connections = 16
+		lifetime = 0
+		idle_timeout = 30
+	}
+}
+
+listen {
+	type = auth
+	ipv6addr = ::
+	port = 0
+	limit {
+		max_connections = 16
+		lifetime = 0
+		idle_timeout = 30
+	}
+}
+
+authorize {
+	preprocess
+	eap {
+		ok = return
+	}
+	expiration
+	logintime
+}
+
+authenticate {
+	eap
+}
+
+session {
+}
+
+post-auth {
+	update {
+		&reply: += &session-state:
+	}
+	-sql
+	exec
+	remove_reply_message_if_eap
+	Post-Auth-Type REJECT {
+		-sql
+		attr_filter.access_reject
+		remove_reply_message_if_eap
+	}
+}
+
+}

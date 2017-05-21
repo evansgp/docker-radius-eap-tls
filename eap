@@ -1,0 +1,27 @@
+eap {
+
+	default_eap_type = tls
+
+	tls-config tls-common {
+
+		private_key_password = $ENV{PRIVATE_KEY_PASSWORD}
+		private_key_file = ${certdir}/$ENV{PRIVATE_KEY}
+		certificate_file = ${certdir}/$ENV{PRIVATE_CERT}
+		ca_file = ${cadir}/$ENV{CA_CERT}
+		dh_file = ${certdir}/$ENV{DH_FILE}
+		ca_path = ${cadir}
+		cipher_list = "HIGH"
+		ecdh_curve = "prime256v1"
+
+		verify {
+			tmpdir = /tmp/radiusd
+			client = "/usr/bin/openssl verify -CApath ${..ca_path} %{TLS-Client-Cert-Filename}"
+		}
+
+	}
+
+	tls {
+		tls = tls-common
+	}
+
+}
