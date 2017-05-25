@@ -1,9 +1,6 @@
 FROM alpine:3.5
 
-RUN apk update && \
-    apk upgrade && \
-    apk add freeradius openssl && \
-    rm /var/cache/apk/*
+RUN apk add --no-cache freeradius openssl
 
 ENV CLIENT_ADDRESS CLIENT_SECRET \
     PRIVATE_CERT PRIVATE_KEY PRIVATE_KEY_PASSWORD \
