@@ -19,5 +19,7 @@ RUN rm /etc/raddb/sites-enabled/* && \
 EXPOSE 1812/udp
 VOLUME /etc/raddb/certs
 
+USER radius
+
 ENTRYPOINT ["/usr/sbin/radiusd"]
 CMD ["-X", "-f"]
