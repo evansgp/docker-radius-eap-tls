@@ -2,9 +2,9 @@ FROM alpine:3.5
 
 RUN apk add --no-cache freeradius openssl
 
-ENV CLIENT_ADDRESS CLIENT_SECRET \
-    PRIVATE_CERT PRIVATE_KEY PRIVATE_KEY_PASSWORD \
-    CA_CERT DH_FILE
+ENV CLIENT_ADDRESS CLIENT_SECRET PRIVATE_KEY_PASSWORD \
+    PRIVATE_CERT=servert.crt PRIVATE_KEY=server.key \
+    CA_CERT=ca.crt DH_FILE=dh.pem
 
 COPY radiusd.conf clients.conf /etc/raddb/
 COPY eap /etc/raddb/mods-available
