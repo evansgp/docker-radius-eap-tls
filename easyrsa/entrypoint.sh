@@ -14,3 +14,5 @@ set -u
 [ ! -f pki/private/server.key ] && ./easyrsa build-server-full server
 
 ./easyrsa $@
+
+chown -R radius:radius pki

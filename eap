@@ -15,7 +15,7 @@ eap {
 
 		verify {
 			tmpdir = /tmp/radiusd
-			client = "/usr/bin/openssl verify -CApath ${..ca_path} %{TLS-Client-Cert-Filename}"
+			client = "/usr/bin/openssl verify -CAfile ${..ca_file} %{TLS-Client-Cert-Filename}"
 		}
 
 	}
